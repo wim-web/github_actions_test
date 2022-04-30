@@ -1,0 +1,11 @@
+---
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: First interaction
+        uses: actions/first-interaction@v1.1.0
