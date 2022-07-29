@@ -2,10 +2,14 @@
 on:
   push:
 
+concurrency: unique
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: First interaction
-        uses: actions/first-interaction@v1.1.0
+        timeout-minutes: 5
+        run: sleep 180
