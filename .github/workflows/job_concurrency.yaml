@@ -4,7 +4,7 @@ on:
 
 jobs:
   test_1:
-    concurrency: unique
+    concurrency: ${{ github.workflow }}-${{ github.ref }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
