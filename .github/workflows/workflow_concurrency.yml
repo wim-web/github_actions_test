@@ -3,7 +3,7 @@ on:
   push:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: unique
   cancel-in-progress: true
 
 jobs:
@@ -14,4 +14,5 @@ jobs:
     steps:
       - name: First interaction update
         timeout-minutes: 5
-        run: sleep 180
+        # run: sleep 180
+        run: echo 1
