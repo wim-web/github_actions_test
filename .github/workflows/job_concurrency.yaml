@@ -1,0 +1,24 @@
+---
+on:
+  push:
+
+jobs:
+  test_1:
+    concurrency: unique
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: First
+        timeout-minutes: 5
+        run: sleep 180
+        # run: echo 1
+  test_2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Second
+        timeout-minutes: 5
+        run: sleep 180
+        # run: echo 1
