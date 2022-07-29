@@ -1,9 +1,10 @@
 ---
 on:
-  push:
+  # push:
+  workflow_dispatch:
 
 concurrency:
-  group: unique
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
