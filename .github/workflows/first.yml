@@ -2,7 +2,9 @@
 on:
   push:
 
-concurrency: unique
+concurrency:
+  group: unique
+  cancel-in-progress: true
 
 jobs:
   test:
