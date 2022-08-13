@@ -9,7 +9,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.0.2
-      - run: gh --version
-      - run: gh release list
+
+      - uses: release-drafter/release-drafter@v5.20.0
+        id: release-drafter
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-release-asset@v1
+        continue-on-error: true
+        id: upload
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release-drafter.outputs.upload_url }}
+          asset_path: aqua.yaml
+          asset_name: aqua.yaml
+          asset_content_type: text/plain
+
+      - name: Remove asset
+        if: steps.upload.outcome == 'failure'
+        uses: flcdrg/remove-release-asset-action@v1
+        id: remove
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.release-drafter.outputs.id }}
+          asset_name: aqua.yaml
+
+      - uses: actions/upload-release-asset@v1
+        if: steps.upload.outcome == 'failure'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release-drafter.outputs.upload_url }}
+          asset_path: aqua.yaml
+          asset_name: aqua.yaml
+          asset_content_type: text/plain
