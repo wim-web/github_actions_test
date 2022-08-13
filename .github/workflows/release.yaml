@@ -1,0 +1,11 @@
+---
+name: release
+
+on:
+  push:
+
+jobs:
+  gh:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh release list
